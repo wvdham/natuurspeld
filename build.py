@@ -225,6 +225,11 @@ def bouw_post(p, vorige, volgende):
         tagblok = '<div class="tags">' + "".join(
             f"<span>#{html.escape(t)}</span>" for t in dict.fromkeys(tags)) + "</div>"
 
+    bronlink = ""
+    if p.get("code"):
+        bronlink = (f'<p class="bronlink"><a href="https://www.instagram.com/p/{p["code"]}/">'
+                    f'Bekijk deze post op Instagram</a></p>')
+
     buren = []
     if volgende:
         buren.append(f'<a href="{volgende["slug"]}.html">&larr; Ouder<br><b>{html.escape(volgende["titel"])}</b></a>')
@@ -243,7 +248,7 @@ def bouw_post(p, vorige, volgende):
       {tekst}
     </div>
     {tagblok}
-    <p class="bronlink"><a href="https://www.instagram.com/p/{p['code']}/">Bekijk deze post op Instagram</a></p>
+    {bronlink}
   </article>
   <nav class="buren">
     {chr(10).join(buren)}
